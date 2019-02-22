@@ -1,18 +1,30 @@
 <div class = "navbar-lewagon brand"></div>
-<div class="jumbotron">
-  <h1 class="display-4">Mister Cocktail</h1>
+<div class="jumbotron text-center" id="banner_background">
+  <h1 class="display-4">This is le Cocktail</h1>
   <p class="lead"><span id="banner-typed-text"></span></p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
   <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    <%= link_to "Add your cocktail", new_cocktail_path, class: "btn btn-light" %>
   </p>
 </div>
 
-<h1>Cocktails</h1>
-<ul>
-  <% @cocktails.each do |cocktail| %>
-  <li><%= link_to cocktail.name, cocktail_path(cocktail) %></li>
-  <% end %>
-</ul>
-<%= link_to "Add a new cocktail", new_cocktail_path %>
+<div class="container">
+  <div class="flex_box">
+    <% @cocktails.each do |cocktail| %>
+      <div class="card" style="width: 18rem;">
+        <%= cl_image_tag cocktail.photo, class: "card-img-top" %>
+        <div class="card-body">
+          <h5 class="card-title"><%= cocktail.name %></h5>
+          <p class="card-text">
+            <li>
+              <% cocktail.doses.each do |dose| %>
+                <%= dose.description %> of <%= dose.ingredient.name %>
+              <% end %>
+            </li>
+          </p>
+          <%= link_to cocktail.name, cocktail_path(cocktail), class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
